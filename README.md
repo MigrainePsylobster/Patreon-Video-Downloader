@@ -53,6 +53,11 @@ python3 SH_downloader.py
 
 ### 1. Get Your Authentication Cookies
 
+⚠️  SECURITY NOTE:
+- Cookies contain your login information
+- Only use on your own computer
+- Don't share cookie files with others
+
 **For Patreon content, you MUST provide authentication cookies:**
 
 #### Method 1: Browser Extension (Recommended)
