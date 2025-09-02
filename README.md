@@ -61,7 +61,8 @@ python3 SH_downloader.py
 **For Patreon content, you MUST provide authentication cookies:**
 
 #### Method 1: Browser Extension (Recommended)
-1. Install [Get cookies.txt LOCALLY](https://chrome.google.com/webstore/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc) (Chrome) or [cookies.txt](https://addons.mozilla.org/en-US/firefox/addon/cookies-txt/) (Firefox)
+1. Install [Get cookies.txt LOCALLY](https://chrome.google.com/webstore/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc) (Chrome)
+                                                          or [cookies.txt](https://addons.mozilla.org/en-US/firefox/addon/cookies-txt/) (Firefox)
 2. Go to `patreon.com` and make sure you're logged in
 3. Click the extension icon
 4. Click "Export" or "Download" for patreon.com
@@ -135,35 +136,6 @@ python3 SH_downloader.py
 
 **Always respect creators' rights and platform terms of service.**
 
-## 🛠️ Development
-
-### Clone and Run
-```bash
-git clone https://github.com/yourusername/patreon-downloader.git
-cd patreon-downloader
-pip install -r requirements.txt
-python SH_downloader.py
-```
-
-### Build Executable (Windows)
-```bash
-pip install pyinstaller
-pyinstaller --onefile --windowed --name=PatreonDownloader SH_downloader.py
-```
-
-### Build for Linux
-```bash
-# See build_linux.py for detailed instructions
-python build_linux.py
-```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
 
 ## 📋 Requirements
 
