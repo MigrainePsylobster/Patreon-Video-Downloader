@@ -20,7 +20,7 @@ if errorlevel 1 (
 )
 
 REM Start the application
-python SH_downloader.py
+python source\SH_downloader.py
 
 REM Keep window open if there's an error
 if errorlevel 1 (

@@ -48,7 +48,7 @@ python -c "import yt_dlp" 2>nul
 if errorlevel 1 (
     echo Installing requirements...
     echo This may take a few minutes...
-    pip install -r requirements.txt
+    pip install -r source\requirements.txt
     if errorlevel 1 (
         echo Error: Failed to install requirements.
         echo Make sure you have an internet connection.
@@ -61,7 +61,7 @@ if errorlevel 1 (
 ) else (
     echo Requirements already installed.
     echo Checking for updates...
-    pip install -r requirements.txt --upgrade
+    pip install -r source\requirements.txt --upgrade
     echo.
 )
 
@@ -82,7 +82,7 @@ echo ========================================
 echo.
 echo You can now run the application using:
 echo   - Double-click "start.bat" 
-echo   - Or run: python SH_downloader.py
+echo   - Or run: python source\SH_downloader.py
 echo.
 echo Press any key to exit...
 pause >nul

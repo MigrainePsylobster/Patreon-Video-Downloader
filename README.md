@@ -10,13 +10,19 @@ The goal is to make it easier to setup and use on windows.
 
 ### Installation
 
-1. run Setup.bat
+1. Click on the green button "<> Code" and choose download ZIP
+
+2. run Setup.bat
 This will make a python venv, no need to global installation
 
-2. run start.bat
+3. run start.bat
 This will start the application GUI
 
 
+### Uninstallation
+
+1. delete folder "venv"
+2. delete the hole zip
 
 ## How to Use
 
