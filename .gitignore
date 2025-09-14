@@ -161,8 +161,6 @@ cython_debug/
 # Project specific
 # Downloaded videos and cookies
 downloads/
-*.cookies.txt
-cookies.txt
 *.mp4
 *.mkv
 *.webm
