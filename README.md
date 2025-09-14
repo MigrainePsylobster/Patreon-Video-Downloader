@@ -5,14 +5,8 @@ This is a fork based on KingStivy's version of https://github.com/KingStivy/Patr
 The goal is to make it easier to setup and use on windows.
 
 
-A user-friendly desktop application for downloading videos from Patreon and other platforms. Perfect for subscribers who want to save content they have legitimate access to.
-
-
-
 ### Prerequisites
 - Python 3.8 or higher
-- Active Patreon subscription (for Patreon content)
-- Windows
 
 ### Installation
 
