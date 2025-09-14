@@ -170,6 +170,9 @@ cookies.txt
 *.avi
 *.mov
 
+# VS Code workspace files
+*.code-workspace
+
 # VS Code
 .vscode/
 !.vscode/settings.json
