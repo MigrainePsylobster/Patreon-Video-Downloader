@@ -29,19 +29,12 @@ This will start the application GUI
 
 **For Patreon content, you MUST provide authentication cookies:**
 
-#### Method 1: Browser Extension (Recommended)
-1. Install [Get cookies.txt LOCALLY](https://chrome.google.com/webstore/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc) (Chrome)
-                                                          or [cookies.txt](https://addons.mozilla.org/en-US/firefox/addon/cookies-txt/) (Firefox)
-2. Go to `patreon.com` and make sure you're logged in
-3. Click the extension icon
-4. Click "Export" or "Download" for patreon.com
-5. Save the `cookies.txt` file
 
-#### Method 2: Manual Export (Advanced)
+#### how to find cookies
 1. Open Developer Tools (F12) on patreon.com
 2. Go to Application/Storage → Cookies → `https://www.patreon.com`
 3. Find the `session_id` cookie and copy its value
-4. Create a text file named `cookies.txt` with this format:
+4. past the value into file named `cookies.txt` with this format:
 ```
 # Netscape HTTP Cookie File
 .patreon.com	TRUE	/	TRUE	0	session_id	YOUR_SESSION_ID_HERE
@@ -57,13 +50,6 @@ This will start the application GUI
 6. **Test first**: Click "Test URL" to verify access
 7. **Download**: Click "Download Video"
 
-## Supported Platforms
-
-- **Patreon** (requires cookies)
-- **YouTube** 
-- **Vimeo**
-- **Dailymotion**
-- **And 1000+ other sites** (via yt-dlp)
 
 ## Troubleshooting
 
