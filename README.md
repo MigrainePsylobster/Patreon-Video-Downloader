@@ -1,61 +1,34 @@
 # Patreon Video Downloader
 <img width="797" height="628" alt="image" src="https://github.com/user-attachments/assets/cfdae785-3341-4bd0-9071-7e85ed02eed7" />
 
+This is a fork based on KingStivy's version of https://github.com/KingStivy/Patreon-Video-Downloader
+The goal is to make it easier to setup and use on windows.
+
 
 A user-friendly desktop application for downloading videos from Patreon and other platforms. Perfect for subscribers who want to save content they have legitimate access to.
 
-## 🎯 Features
 
-✅ **Easy-to-use GUI** - Simple point-and-click interface  
-✅ **Patreon Authentication** - Cookie-based login support  
-✅ **Multiple Quality Options** - Choose from 360p to best available  
-✅ **Progress Tracking** - Real-time download progress with speed  
-✅ **URL Testing** - Verify access before downloading  
-✅ **Cross-Platform** - Windows, macOS, and Linux support  
-✅ **Safe & Secure** - Uses your existing browser cookies  
-
-## 🚀 Quick Start
 
 ### Prerequisites
 - Python 3.8 or higher
 - Active Patreon subscription (for Patreon content)
+- Windows
 
 ### Installation
 
-#### Windows
-```bash
-# Download Python from python.org, then:
-pip install requests beautifulsoup4 yt-dlp pillow
-python SH_downloader.py
-```
+1. run Setup.bat
+This will make a python venv, no need to global installation
 
-#### Linux (Ubuntu/Debian)
-```bash
-sudo apt update
-sudo apt install python3 python3-pip python3-tkinter
-pip3 install requests beautifulsoup4 yt-dlp pillow
-python3 SH_downloader.py
-```
+2. run start.bat
+This will start the application GUI
 
-#### Linux (Arch)
-```bash
-sudo pacman -S python python-pip tk
-pip install requests beautifulsoup4 yt-dlp pillow
-python SH_downloader.py
-```
 
-#### macOS
-```bash
-# Install Python 3.8+ from python.org or homebrew
-pip3 install requests beautifulsoup4 yt-dlp pillow
-python3 SH_downloader.py
-```
 
-## 📝 How to Use
+## How to Use
 
 ### 1. Get Your Authentication Cookies
 
-⚠️  SECURITY NOTE:
+**SECURITY NOTE:**
 - Cookies contain your login information
 - Only use on your own computer
 - Don't share cookie files with others
@@ -87,18 +60,18 @@ python3 SH_downloader.py
 3. **Enter URL**: Paste the Patreon video URL
 4. **Choose location**: Select where to save the video
 5. **Select quality**: Pick your preferred quality
-6. **Test first**: Click "🔍 Test URL" to verify access
-7. **Download**: Click "💾 Download Video"
+6. **Test first**: Click "Test URL" to verify access
+7. **Download**: Click "Download Video"
 
-## 🌐 Supported Platforms
+## Supported Platforms
 
-- ✅ **Patreon** (requires cookies)
-- ✅ **YouTube** 
-- ✅ **Vimeo**
-- ✅ **Dailymotion**
-- ✅ **And 1000+ other sites** (via yt-dlp)
+- **Patreon** (requires cookies)
+- **YouTube** 
+- **Vimeo**
+- **Dailymotion**
+- **And 1000+ other sites** (via yt-dlp)
 
-## ❓ Troubleshooting
+## Troubleshooting
 
 ### "Access Denied" / "You do not have access to this post"
 - **Solution**: Make sure you're subscribed to the creator at the required tier
@@ -108,7 +81,7 @@ python3 SH_downloader.py
 ### "No video found" Error
 - **Check URL**: Ensure you copied the complete post URL
 - **Content type**: Some posts contain images/text only, not videos
-- **Use Test**: Click "🔍 Test URL" first to verify
+- **Use Test**: Click "Test URL" first to verify
 
 ### Cookies Not Working
 - **Format**: Ensure cookies are in Netscape format (use browser extensions)
@@ -121,16 +94,16 @@ python3 SH_downloader.py
 - **Permissions**: Check folder write permissions
 - **Try different quality**: Some qualities may not be available
 
-## ⚖️ Legal Notice
+## Legal Notice
 
 **IMPORTANT**: This tool is for downloading content you have legitimate access to.
 
-### ✅ Legal Use Cases:
+### Legal Use Cases:
 - Downloading videos from creators you subscribe to
 - Personal backup of content you paid for
 - Offline viewing of your subscribed content
 
-### ❌ Prohibited Use:
+### Prohibited Use:
 - Sharing downloaded content without creator permission
 - Downloading content you haven't paid for
 - Distributing content outside platform terms
@@ -139,7 +112,7 @@ python3 SH_downloader.py
 **Always respect creators' rights and platform terms of service.**
 
 
-## 📋 Requirements
+## Requirements
 
 - Python 3.8+
 - tkinter (usually included with Python)
@@ -148,22 +121,22 @@ python3 SH_downloader.py
 - yt-dlp
 - pillow
 
-## 🐛 Known Issues
+## Known Issues
 
 - Some Patreon posts may have embedded players that require special handling
 - Very large files (>2GB) may take significant time
 - Cookie expiration requires periodic re-export
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License
 
-## ⚠️ Disclaimer
+## Disclaimer
 
 This software is provided "as is" without warranty of any kind. Users are responsible for complying with all applicable laws and platform terms of service. The developers are not responsible for any misuse of this tool.
 
 
-## 🔄 Changelog
+## Changelog
 
 ### v1.0.0
 - Initial release
@@ -172,9 +145,3 @@ This software is provided "as is" without warranty of any kind. Users are respon
 - Multi-platform support
 - Quality selection options
 - URL testing functionality
-
----
-
-**Made with ❤️ for content creators and their supporters**
-
-> **Note**: If you find this tool useful, consider supporting the creators whose content you download!
