@@ -91,18 +91,7 @@ This will start the application GUI
 
 **Always respect creators' rights and platform terms of service.**
 
-
-## Requirements
-
-- Python 3.8+
-- tkinter (usually included with Python)
-- requests
-- beautifulsoup4
-- yt-dlp
-- pillow
-
 ## Known Issues
-
 - Some Patreon posts may have embedded players that require special handling
 - Very large files (>2GB) may take significant time
 - Cookie expiration requires periodic re-export
@@ -115,13 +104,3 @@ This project is licensed under the MIT License
 
 This software is provided "as is" without warranty of any kind. Users are responsible for complying with all applicable laws and platform terms of service. The developers are not responsible for any misuse of this tool.
 
-
-## Changelog
-
-### v1.0.0
-- Initial release
-- Patreon cookie authentication
-- GUI interface with progress tracking
-- Multi-platform support
-- Quality selection options
-- URL testing functionality
