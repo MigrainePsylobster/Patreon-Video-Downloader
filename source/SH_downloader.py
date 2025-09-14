@@ -16,6 +16,9 @@ class PatreonDownloaderApp:
         self.root.geometry("800x600")
         self.root.resizable(True, True)
         
+        # Set application icon
+        self.set_application_icon()
+        
         # Variables
         self.download_path = tk.StringVar()
         self.download_path.set(str(Path.home() / "Downloads"))
@@ -28,6 +31,128 @@ class PatreonDownloaderApp:
         self.is_downloading = False
         
         self.setup_ui()
+        
+    def set_application_icon(self):
+        """Set the application icon for the window"""
+        try:
+            # Try to load icon from multiple possible locations
+            icon_paths = [
+                "icon/circel logo copy.png",     # Your specific icon (relative to source)
+                "icon/circel logo copy.ico",     # ICO version if available
+                "source/icon/circel logo copy.png",  # From root folder
+                "../icon/circel logo copy.png",  # From source folder to parent
+                "icon.ico",                      # Fallback locations
+                "assets/icon.ico",    
+                "source/icon.ico",    
+                "../icon.ico",        
+            ]
+            
+            icon_set = False
+            for icon_path in icon_paths:
+                if os.path.exists(icon_path):
+                    try:
+                        print(f"Found icon file: {icon_path}")  # Debug print
+                        # For PNG files, convert to ICO first
+                        if icon_path.endswith('.png'):
+                            ico_path = self.convert_png_to_ico(icon_path)
+                            if ico_path:
+                                self.root.iconbitmap(ico_path)
+                                print(f"Successfully loaded icon: {icon_path}")  # Debug print
+                                icon_set = True
+                                break
+                        else:
+                            # Direct ICO file
+                            self.root.iconbitmap(icon_path)
+                            print(f"Successfully loaded icon: {icon_path}")  # Debug print
+                            icon_set = True
+                            break
+                    except Exception as e:
+                        print(f"Failed to load {icon_path}: {str(e)}")  # Debug print
+                        continue
+            
+            # If no icon file found, try to create one from a simple design
+            if not icon_set:
+                print("No icon file found, creating default icon")  # Debug print
+                self.create_default_icon()
+                
+        except Exception as e:
+            # Log error for debugging
+            print(f"Icon loading error: {str(e)}")  # Debug print
+    
+    def convert_png_to_ico(self, png_path):
+        """Convert PNG to ICO format for Windows compatibility"""
+        try:
+            from PIL import Image
+            
+            # Load the PNG image
+            img = Image.open(png_path)
+            
+            # Convert to RGBA if not already
+            if img.mode != 'RGBA':
+                img = img.convert('RGBA')
+            
+            # Resize to standard icon sizes if needed
+            icon_sizes = [(32, 32), (16, 16)]
+            
+            # Create ICO file path
+            ico_path = png_path.replace('.png', '_converted.ico')
+            
+            # Save as ICO with multiple sizes
+            img.save(ico_path, format='ICO', sizes=icon_sizes)
+            
+            return ico_path
+            
+        except ImportError:
+            self.log("⚠️  PIL not available for PNG conversion")
+            return None
+        except Exception as e:
+            self.log(f"⚠️  PNG conversion failed: {str(e)}")
+            return None
+    
+    def create_default_icon(self):
+        """Create a simple default icon if no icon file exists"""
+        try:
+            from PIL import Image, ImageDraw, ImageFont
+            
+            # Create a 32x32 icon with a simple "P" design
+            size = 32
+            img = Image.new('RGBA', (size, size), (0, 0, 0, 0))
+            draw = ImageDraw.Draw(img)
+            
+            # Draw a circle background
+            circle_color = (255, 94, 77)  # Patreon-like orange-red
+            draw.ellipse([2, 2, size-2, size-2], fill=circle_color)
+            
+            # Draw "P" letter
+            try:
+                # Try to use a font
+                font = ImageFont.truetype("arial.ttf", 18)
+            except:
+                font = ImageFont.load_default()
+            
+            # Draw white "P"
+            text_color = (255, 255, 255)
+            bbox = draw.textbbox((0, 0), "P", font=font)
+            text_width = bbox[2] - bbox[0]
+            text_height = bbox[3] - bbox[1]
+            x = (size - text_width) // 2
+            y = (size - text_height) // 2 - 2
+            draw.text((x, y), "P", fill=text_color, font=font)
+            
+            # Save as ICO file
+            icon_path = "app_icon.ico"
+            img.save(icon_path, format='ICO', sizes=[(32, 32)])
+            
+            # Set the icon
+            self.root.iconbitmap(icon_path)
+            self.log("✅ Created and loaded default icon")
+            
+        except ImportError:
+            # PIL not available, try a text-based approach
+            self.log("⚠️  PIL not available for icon creation")
+        except Exception as e:
+            # Any other error, just skip icon
+            pass
         
     def setup_ui(self):
         # Main frame
@@ -55,7 +180,8 @@ class PatreonDownloaderApp:
         self.cookies_entry.grid(row=0, column=1, sticky=(tk.W, tk.E), padx=(0, 10))
         
         ttk.Button(auth_frame, text="Browse", command=self.browse_cookies).grid(row=0, column=2, padx=(0, 10))
-        ttk.Button(auth_frame, text="Help", command=self.show_cookies_help).grid(row=0, column=3)
+        ttk.Button(auth_frame, text="Auto-Extract", command=self.auto_extract_cookies).grid(row=0, column=3, padx=(0, 10))
+        ttk.Button(auth_frame, text="Help", command=self.show_cookies_help).grid(row=0, column=4)
         
         # URL Section
         ttk.Label(main_frame, text="Patreon Video URL:", font=("Arial", 10, "bold")).grid(
@@ -196,6 +322,72 @@ Method 3 - Browser Extension "cookies.txt":
         if file_path:
             self.cookies_file.set(file_path)
             self.log(f"🍪 Cookies file selected: {os.path.basename(file_path)}")
+    
+    def auto_extract_cookies(self):
+        """Auto-extract cookies from browser using yt-dlp"""
+        try:
+            import tempfile
+            import subprocess
+            import sys
+            
+            # Create a temporary file for cookies
+            temp_file = tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False)
+            temp_file.close()
+            
+            self.log("🔍 Extracting cookies from browser...")
+            
+            # Use yt-dlp to extract cookies from browser
+            # Try different browsers in order of preference
+            browsers = ['chrome', 'firefox', 'edge', 'safari']
+            
+            for browser in browsers:
+                try:
+                    self.log(f"📱 Trying {browser.title()}...")
+                    
+                    # Run yt-dlp to extract cookies
+                    cmd = [
+                        sys.executable, '-m', 'yt_dlp',
+                        '--cookies-from-browser', browser,
+                        '--cookies', temp_file.name,
+                        '--no-download',
+                        'https://www.patreon.com'  # Dummy URL to trigger cookie extraction
+                    ]
+                    
+                    result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+                    
+                    if result.returncode == 0:
+                        # Check if cookies were actually extracted
+                        with open(temp_file.name, 'r') as f:
+                            content = f.read().strip()
+                            if content and 'patreon.com' in content.lower():
+                                self.cookies_file.set(temp_file.name)
+                                self.log(f"✅ Cookies successfully extracted from {browser.title()}!")
+                                self.log(f"🍪 Cookies saved to: {temp_file.name}")
+                                return
+                    
+                except subprocess.TimeoutExpired:
+                    self.log(f"⏱️  Timeout extracting from {browser.title()}")
+                    continue
+                except Exception as e:
+                    continue
+            
+            # If we get here, no browser worked
+            os.unlink(temp_file.name)  # Clean up temp file
+            self.log("❌ Could not extract cookies from any browser")
+            messagebox.showwarning(
+                "Auto-Extract Failed", 
+                "Could not automatically extract cookies from any browser.\n\n"
+                "Please make sure you're logged into Patreon in your browser, "
+                "or use the Browse button to select a cookies file manually."
+            )
+            
+        except Exception as e:
+            self.log(f"❌ Error during auto-extraction: {str(e)}")
+            messagebox.showerror(
+                "Auto-Extract Error", 
+                f"An error occurred during auto-extraction:\n{str(e)}\n\n"
+                "Please try using the Browse button to select a cookies file manually."
+            )
     
     def paste_url(self):
         try:
